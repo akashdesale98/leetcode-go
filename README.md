@@ -1,2 +1,2 @@
 # leetcode-go
-contains at leetcode problems solution
+contains leetcode problems and their solutions written in Go
