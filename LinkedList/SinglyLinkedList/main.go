@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type Node struct {
 	data   int
@@ -9,17 +11,28 @@ type Node struct {
 }
 
 func main() {
-	a := []int{4, 2, 1, 6, 7, 3}
+	// a := []int{4, 2, 1, 6, 7, 3}
 
-	head := BuildLL(a)
+	// head := BuildLL(a)
+	// // PrintLL(head)
+	// // fmt.Println("length", FindLLLength(head))
+	// // head = Delete(head, 4)
+	// // PrintLL(head)
+	// // head = Insert(head, 7, 8)
+	// // PrintLL(head)
+	// head = ReverseIterative(head)
 	// PrintLL(head)
-	// fmt.Println("length", FindLLLength(head))
-	// head = Delete(head, 4)
-	// PrintLL(head)
-	// head = Insert(head, 7, 8)
-	// PrintLL(head)
-	head = ReverseIterative(head)
-	PrintLL(head)
+
+	// l1 := []int{9, 9, 9, 9, 9, 9, 9}
+	// l2 := []int{9, 9, 9, 9}
+	l1 := []int{2, 4, 3}
+	l2 := []int{5, 6, 4}
+
+	headL1 := BuildLL(l1)
+	headL2 := BuildLL(l2)
+
+	addTwoNumbers(headL1, headL2)
+
 }
 
 func BuildLL(a []int) *Node {
@@ -156,4 +169,53 @@ func ReverseRecusive(head *Node) *Node {
 
 	return node
 
+}
+
+func addTwoNumbers(l1 *Node, l2 *Node) {
+
+	carry := 0
+	var curr, head *Node
+	for l1 != nil || l2 != nil {
+		sum := carry
+		if l1 != nil {
+			sum += l1.data
+		}
+
+		if l2 != nil {
+			sum += l2.data
+		}
+
+		if sum >= 10 {
+			carry = sum / 10
+			sum = sum % 10
+		} else {
+			carry = 0
+		}
+		temp := &Node{
+			data: sum,
+		}
+		if curr == nil {
+			curr, head = temp, temp
+		} else {
+			curr.next = temp
+			curr = temp
+		}
+
+		if l1 != nil {
+			l1 = l1.next
+		}
+		if l2 != nil {
+			l2 = l2.next
+		}
+	}
+
+	if carry > 0 {
+		temp := &Node{
+			data: carry,
+		}
+		curr.next = temp
+		curr = temp
+	}
+
+	PrintLL(head)
 }
